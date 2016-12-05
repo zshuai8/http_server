@@ -1,0 +1,33 @@
+Group member: Hang Hu(pid: hanghu)
+
+The server will start to listen to the port. If it succeeds in accepting requests.
+It will submit the file descriptor and a new thread to process the request.
+
+thread pool
+I use thread pool in project 2 to process every http request.
+
+rio package
+This package is used to read from the connection file descriptor.
+
+int parse_uri(char *uri, char *filename, char *cgiargs);
+The sysstatd server can process 7 kinds of request
+    static, dynamic, loadavg, meminfo, runloop, allocanon, freeanon
+The parse_uri function will parse the uri and return the request type.
+If it is static, filename will contain the path of that file, cgiargs will be empty.
+If it is dynamic, filename will contain the path of that exutable, cgiargs will be the arguments.
+If it is loadavg, filename will be empty, cgiargs will be empty or the callback function.
+If it is meminfo, filename will be empty, cgiargs will be empty or the callback function.
+If it is runloop, allocanon, freeanon. The filename and cgiargs will be empty.
+
+void clienterror(int fd, char *cause, char *errnum, char *shortmsg, char *longmsg, char *version);
+I use another function clienterror to send back error information back to client.
+
+void read_requesthdrs(rio_t *rp);
+The headers of the requests will be read and print.
+
+serve_static and serve_dynamic will be called after knowing the type and the filename and arguments.
+
+
+
+
+
